@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        body {
+            background-color: #444;
+        }
+
+        .cat {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            display: none;
+        }
+
+        #box {
+            border: 10px solid black;
+            margin: 50px auto;
+            width: 1000px;
+            height: 700px;
+            background-color: white;
+            overflow: hidden;
+            position: relative;
+            left: 0px;
+            top: 0px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- ex34.html -->
+
+    <div id="box">
+        <img src="../images/catty01.png" class="cat">
+        <img src="../images/catty02.png" class="cat">
+        <img src="../images/catty03.png" class="cat">
+        <img src="../images/catty04.png" class="cat">
+        <img src="../images/catty05.png" class="cat">
+        <img src="../images/catty06.png" class="cat">
+        <img src="../images/catty07.png" class="cat">
+        <img src="../images/catty08.png" class="cat">
+        <img src="../images/catty09.png" class="cat">
+        <img src="../images/catty10.png" class="cat">
+        <img src="../images/catty11.png" class="cat">
+        <img src="../images/catty12.png" class="cat">
+        <img src="../images/catty13.png" class="cat">
+        <img src="../images/catty14.png" class="cat">
+        <img src="../images/catty15.png" class="cat">
+        <img src="../images/catty16.png" class="cat">
+        <img src="../images/catty17.png" class="cat">
+        <img src="../images/catty18.png" class="cat">
+        <img src="../images/catty19.png" class="cat">
+        <img src="../images/catty20.png" class="cat">
+        <img src="../images/catty21.png" class="cat">
+    </div>
+
+    <script>
+
+        var cat = document.getElementsByClassName("cat");
+        var box = document.getElementById("box");
+        var isDown = false;
+        var pathX = [];
+        var pathY = [];
+
+        window.onmousedown = function() {
+            isDown = true;
+        }
+
+        window.onmouseup = function() {
+            isDown = false;
+
+            if (event.ctrlKey == true) {
+
+                for (var i=0; i<cat.length; i++) {
+
+                    cat[i].style.display = "none";
+
+                }
+
+            }
+
+        }
+
+        window.onmousemove = function() {
+
+            pathX.push(event.clientX);
+            pathY.push(event.clientY);
+
+            if (pathX.length > cat.length) {
+
+                pathX.shift();
+                pathY.shift();
+
+            }
+
+            if (isDown) {
+                moveCat();
+
+                event.preventDefault();
+                return false;
+
+            }
+
+        };
+
+        function moveCat() {
+
+            for (var i=0; i<cat.length; i++) {
+
+                if (pathX[i] != null) {
+
+                    cat[i].style.left = pathX[i] - 64 - box.offsetLeft + "px";
+                    cat[i].style.top = pathY[i] - 64 - box.offsetTop + "px";
+                    cat[i].style.zIndex = cat.length - i;
+                    cat[i].style.display = "block";
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
